@@ -20,7 +20,7 @@ jobs:
           MODULEPATH: magisk-module
           MODULEPROP: ./$MODULEPATH/module.prop
           MODULEID: $(grep id $MODULEPROP | cut -c4-)
-          MODULEVER: $(grep -w version $module_prop | cut -c9-)-$(grep versionCode $module_prop | cut -c13-)
+          MODULEVER: $(grep -w version $MODULEPATH | cut -c9-)-$(grep versionCode $MODULEPATH | cut -c13-)
         run: |
           cd $MODULEPATH
           zip -r ../"$MODULEID-$MODULEVER".zip .
