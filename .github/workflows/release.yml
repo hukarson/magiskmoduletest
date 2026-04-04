@@ -9,20 +9,21 @@ on:
         default: true
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Zip
-      env:
-        MODULEPATH: magisk-module
-        MODULEPROP: ./$MODULEPATH/module.prop
-        MODULEID: $(grep id $MODULEPROP | cut -c4-)
-        MODULEVER: $(grep -w version $module_prop | cut -c9-)-$(grep versionCode $module_prop | cut -c13-)
-      run: |
-        cd ./$MODULEPATH
-        zip -r ../$module_id-$module_ver.zip .
+  build_module:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Zip
+        env:
+          MODULEPATH: magisk-module
+          MODULEPROP: ./$MODULEPATH/module.prop
+          MODULEID: $(grep id $MODULEPROP | cut -c4-)
+          MODULEVER: $(grep -w version $module_prop | cut -c9-)-$(grep versionCode $module_prop | cut -c13-)
+        run: |
+          cd ./$MODULEPATH
+          zip -r ../$module_id-$module_ver.zip .
 
-    - name: Actions
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{env.module_id}}-${{env.module_ver}}
-        path: ./${{env.module_id}}-${{env.module_ver}}.zip
+      - name: Actions
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{env.module_id}}-${{env.module_ver}}
+          path: ./${{env.module_id}}-${{env.module_ver}}.zip
