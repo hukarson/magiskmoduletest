@@ -28,5 +28,5 @@ jobs:
       - name: Actions
         uses: actions/upload-artifact@v4
         with:
-          name: ${{env.module_id}}-${{env.module_ver}}
-          path: ./${{env.module_id}}-${{env.module_ver}}.zip
+          name: ${{env.MODULEID}}-${{env.MODULEVER}}
+          path: ./${{env.MODULEID}}-${{env.MODULEVER}}.zip
