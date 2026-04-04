@@ -1,4 +1,4 @@
-name: Build
+name: RunBuild
 
 on:
   workflow_call:
@@ -23,7 +23,7 @@ jobs:
           MODULEVER: $(grep -w version $module_prop | cut -c9-)-$(grep versionCode $module_prop | cut -c13-)
         run: |
           cd $MODULEPATH
-          zip -r ../$MODULEID-$MODULEVER.zip .
+          zip -r ../"$MODULEID-$MODULEVER".zip .
 
       - name: Actions
         uses: actions/upload-artifact@v4
