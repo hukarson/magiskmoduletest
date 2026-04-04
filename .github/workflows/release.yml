@@ -12,8 +12,10 @@ jobs:
   build_module:
     runs-on: ubuntu-latest
     steps:
-      - name: Zip
+      - name: Get repository
         uses: actions/checkout@v5
+
+      - name: Zip
         env:
           MODULEPATH: magisk-module
           MODULEPROP: ./$MODULEPATH/module.prop
