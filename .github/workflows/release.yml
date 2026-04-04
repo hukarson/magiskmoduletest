@@ -13,13 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Zip
+        uses: actions/checkout@v5
         env:
           MODULEPATH: magisk-module
           MODULEPROP: ./$MODULEPATH/module.prop
           MODULEID: $(grep id $MODULEPROP | cut -c4-)
           MODULEVER: $(grep -w version $module_prop | cut -c9-)-$(grep versionCode $module_prop | cut -c13-)
         run: |
-          cd ./$MODULEPATH
+          cd $MODULEPATH
           zip -r ../$module_id-$module_ver.zip .
 
       - name: Actions
