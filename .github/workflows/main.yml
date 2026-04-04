@@ -4,10 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       get_push_true:
-        tags:
-          description: 'WIP'
-          required: false
-          type: boolean
+        description: 'WIP'
+        required: false
+        type: boolean
 
 jobs:
   build:
