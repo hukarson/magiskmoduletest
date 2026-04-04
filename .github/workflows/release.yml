@@ -18,10 +18,10 @@ jobs:
       - name: Zip
         env:
           MODULEPATH: magisk-module
-          MODULEPROP: ./$MODULEPATH/module.prop
-          MODULEID: $(grep id $MODULEPROP | cut -c4-)
-          MODULEVER: $(grep -w version $MODULEPROP | cut -c9-)-$(grep versionCode $MODULEPROP | cut -c13-)
         run: |
+          MODULEPROP=$MODULEPATH/module.prop
+          MODULEID=$(grep id $MODULEPROP | cut -c4-)
+          MODULEVER=$(grep -w version $MODULEPROP | cut -c9-)-$(grep versionCode $MODULEPROP | cut -c13-)
           cd $MODULEPATH
           zip -r ../"$MODULEID-$MODULEVER".zip .
           echo "set github env"
@@ -32,4 +32,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{env.module_id}}-${{env.module_ver}}
-          path: ./${{env.module_id}}-${{env.module_ver}}.zip
+          path: ./*.zip
