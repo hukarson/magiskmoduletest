@@ -24,9 +24,12 @@ jobs:
         run: |
           cd $MODULEPATH
           zip -r ../"$MODULEID-$MODULEVER".zip .
+          echo "set github env"
+          echo "module_id=$MODULEID" >> $GITHUB_ENV
+          echo "module_ver=$MODULEVER" >> $GITHUB_ENV
 
       - name: Actions
         uses: actions/upload-artifact@v4
         with:
-          name: ${{env.MODULEID}}-${{env.MODULEVER}}
-          path: ./*.zip
+          name: ${{env.module_id}}-${{env.module_ver}}
+          path: ./${{env.module_id}}-${{env.module_ver}}.zip
