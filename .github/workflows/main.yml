@@ -1,0 +1,17 @@
+name: Start
+
+on:
+  workflow_dispatch:
+    inputs:
+      get_push_true:
+        tags:
+          description: 'WIP'
+          required: false
+          type: boolean
+
+jobs:
+  build:
+    uses: ./.github/workflows/release.yml
+    secrets: inherit
+    with:
+      push_true: ${{ inputs.get_push_true }}
