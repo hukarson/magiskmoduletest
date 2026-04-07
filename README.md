@@ -6,9 +6,10 @@ The magisk module have
 - Get Env by magisk module system
     - but get module self no get other module
 - Check module mount system files
+- Get [metamodule](https://kernelsu.org/guide/metamodule.html)
 
 ## Build
-```shell
+``` shell
 sh make.sh
 ```
 

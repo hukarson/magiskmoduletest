@@ -29,6 +29,11 @@ vendor_dlkm
 "
 
 for ModuleID in $(ls $MODROOTDIR); do
+	if [ "$(grep metamodule $MODROOTDIR/$ModuleID/module.prop)" ]; then
+		MetaMID=$(grep id $MODROOTDIR/$ModuleID/module.prop | cut -c4-)
+		MetaMName=$(grep name $MODROOTDIR/$ModuleID/module.prop | cut -c6-)
+		trueMetaM=1
+	fi
 	for MountName in $MOUNTLIST; do
 		if [ -d "$MODROOTDIR/$ModuleID/$MountName" ]; then
 			for MountFile in $(find $MODROOTDIR/$ModuleID/$MountName -type f); do
@@ -59,7 +64,15 @@ env > $MODDIR/get_env
 
 #process module.prop
 cp $MODDIR/module.prop $MODDIR/new.prop
-sed -Ei "s/^description=(\[.*][[:space:]]*)?/description=[ ROOT: $isROOT, Mount Success: $trueMOUNT ] /g" $MODDIR/new.prop
+if [ "$trueMetaM" ] && [ "$KSU_KERNEL_VER_CODE" -gt "22098" ]; then
+	if [ -f "$MODROOTDIR/$MetaMID/disable" ]; then
+		sed -Ei "s/^description=(\[.*][[:space:]]*)?/description=[ ROOT: $isROOT, Meta Module: $MetaMName(stop) ] /g" $MODDIR/new.prop
+	else
+		sed -Ei "s/^description=(\[.*][[:space:]]*)?/description=[ ROOT: $isROOT, Meta Module: $MetaMName, Mount Success: $trueMOUNT ] /g" $MODDIR/new.prop
+	fi
+else
+	sed -Ei "s/^description=(\[.*][[:space:]]*)?/description=[ ROOT: $isROOT, Mount Success: $trueMOUNT ] /g" $MODDIR/new.prop
+fi
 mount --bind $MODDIR/new.prop $MODDIR/module.prop
 rm $MODDIR/new.prop
 #sorry i want new.prop see goodbye

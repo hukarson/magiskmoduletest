@@ -1,4 +1,11 @@
-## v1.0
-1.Get known root manager
-2.Get from service.h env
-3.Get whether mount system files
+## v1.1
+1.Add updatejson
+
+2.Add identify metamodule
+
+## Main
+1.Get env
+
+2.Check whether mount system files
+
+3.Get metamodule
