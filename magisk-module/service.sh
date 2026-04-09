@@ -65,11 +65,19 @@ env > $MODDIR/get_env
 #process module.prop
 cp $MODDIR/module.prop $MODDIR/new.prop
 getROOT="ROOT: $isROOT,"
-if [ "$KSU_KERNEL_VER_CODE" -gt "22098" ] && [ "$trueMetaM" ] ; then
+if [ "$KSU_KERNEL_VER_CODE" -gt "22098" ] && [ "$trueMetaM" ]; then
+	if [ -f $MODROOTDIR/$MetaMID/disable ]; then
+		isMetaM="Meta Module: $MetaMName(stop)"
+	else
 	isMetaM="Meta Module: $MetaMName,"
+	fi
 fi
 getMount="Mount Success: $trueMOUNT"
-MESSAGE=$(echo "$getROOT $isMetaM $getMount" | tr -s [:blank:])
+if [ "$KSU_KERNEL_VER_CODE" -gt "22098" ] && [ "$trueMetaM" ] && [ -f $MODROOTDIR/$MetaMID/disable ]; then
+	MESSAGE="$getROOT $isMetaM"
+else
+	MESSAGE=$(echo "$getROOT $isMetaM $getMount" | tr -s [:blank:])
+fi
 sed -Ei "s/^description=(\[.*][[:space:]]*)?/description=[ $MESSAGE ] /g" $MODDIR/new.prop
 mount --bind $MODDIR/new.prop $MODDIR/module.prop
 rm $MODDIR/new.prop
