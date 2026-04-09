@@ -1,7 +1,5 @@
-## v1.1
-1.Add updatejson
-
-2.Add identify metamodule
+## v1.2
+Optimize shell language
 
 ## Main
 1.Get env

@@ -30,7 +30,7 @@ vendor_dlkm
 
 for ModuleID in $(ls $MODROOTDIR); do
 	if [ "$(grep metamodule $MODROOTDIR/$ModuleID/module.prop)" ]; then
-		MetaMID=$(grep id $MODROOTDIR/$ModuleID/module.prop | cut -c4-)
+		MetaMID=$ModuleID
 		MetaMName=$(grep name $MODROOTDIR/$ModuleID/module.prop | cut -c6-)
 		trueMetaM=1
 	fi
@@ -64,15 +64,13 @@ env > $MODDIR/get_env
 
 #process module.prop
 cp $MODDIR/module.prop $MODDIR/new.prop
-if [ "$trueMetaM" ] && [ "$KSU_KERNEL_VER_CODE" -gt "22098" ]; then
-	if [ -f "$MODROOTDIR/$MetaMID/disable" ]; then
-		sed -Ei "s/^description=(\[.*][[:space:]]*)?/description=[ ROOT: $isROOT, Meta Module: $MetaMName(stop) ] /g" $MODDIR/new.prop
-	else
-		sed -Ei "s/^description=(\[.*][[:space:]]*)?/description=[ ROOT: $isROOT, Meta Module: $MetaMName, Mount Success: $trueMOUNT ] /g" $MODDIR/new.prop
-	fi
-else
-	sed -Ei "s/^description=(\[.*][[:space:]]*)?/description=[ ROOT: $isROOT, Mount Success: $trueMOUNT ] /g" $MODDIR/new.prop
+getROOT="ROOT: $isROOT,"
+if [ "$KSU_KERNEL_VER_CODE" -gt "22098" ] && [ "$trueMetaM" ] ; then
+	isMetaM="Meta Module: $MetaMName,"
 fi
+getMount="Mount Success: $trueMOUNT"
+MESSAGE=$(echo "$getROOT $isMetaM $getMount" | tr -s [:blank:])
+sed -Ei "s/^description=(\[.*][[:space:]]*)?/description=[ $MESSAGE ] /g" $MODDIR/new.prop
 mount --bind $MODDIR/new.prop $MODDIR/module.prop
 rm $MODDIR/new.prop
 #sorry i want new.prop see goodbye

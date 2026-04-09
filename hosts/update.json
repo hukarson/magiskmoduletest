@@ -1,6 +1,6 @@
 {
-    "version": 1.1,
-    "versionCode": 11,
-    "zipUrl": "https://github.com/hukarson/magiskmoduletest/releases/download/1.1/amoduletest-1.1-11.zip",
+    "version": 1.2,
+    "versionCode": 12,
+    "zipUrl": "https://github.com/hukarson/magiskmoduletest/releases/download/1.2/amoduletest-1.2-12.zip",
     "changelog": "https://raw.githubusercontent.com/hukarson/magiskmoduletest/refs/heads/master/hosts/changelog.md"
 }
