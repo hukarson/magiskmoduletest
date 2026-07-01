@@ -1,5 +1,6 @@
-## v1.2
-Optimize shell language
+## v1.3
+Optimize magisk detection
+Add ShiroSU identify
 
 ## Main
 1.Get env

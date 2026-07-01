@@ -11,7 +11,9 @@ if [ "$KSU_KERNEL_VER_CODE" -gt 0 ]; then
 	GETROOTINFO=kernelsu
     elif [ "$APATCH_VER_CODE" -gt 0 ]; then
 	GETROOTINFO=apatch
-    elif [ "$MAGISK_VER_CODE" -gt 0 ]; then
+    elif [ "$SUU_VER_CODE" -gt 0 ]; then
+	GETROOTINFO=shirosu
+    elif [ "$MAGISK_VER_CODE" -gt 0 ] || [ ! -z "$(which magisk)" ]; then
 	 GETROOTINFO=magisk
     else
 	 GETROOTINFO=unknown

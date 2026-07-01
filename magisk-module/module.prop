@@ -1,7 +1,7 @@
 id=amoduletest
 name=Moduletest
-version=1.2
-versionCode=12
+version=1.3
+versionCode=13
 author=HuKarson
 description=The module message
 updateJson=https://raw.githubusercontent.com/hukarson/magiskmoduletest/refs/heads/master/hosts/update.json

@@ -11,7 +11,9 @@ if [ "$KSU_KERNEL_VER_CODE" -gt 0 ]; then
 	isROOT=KernelSU
 elif [ "$APATCH_VER_CODE" -gt 0 ]; then
 	isROOT=APatch
-elif [ "$MAGISK_VER_CODE" -gt 0 ]; then
+elif [ "$SSU_VER_CODE" -gt 0 ]; then
+	isROOT=ShiroSU
+elif [ "$MAGISK_VER_CODE" -gt 0 ] || [ ! -z "$(which magisk)" ]; then
 	isROOT=Magisk
 else
 	isROOT=Unknown
